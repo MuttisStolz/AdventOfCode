@@ -60,7 +60,7 @@ public class Day02 : IDayTask
     private List<(Handsign other, Handsign me)> ReadInput()
     {
         var res = new List<(Handsign other, Handsign me)>();
-        foreach (var line in File.ReadAllLines("2022/Day_02/input.txt"))
+        foreach (var line in File.ReadAllLines("2022/Day_02/d02input.txt"))
         {
             var r = line.Split(' ');
             res.Add((ConvertToHandsigns(r[0]), ConvertToHandsigns(r[1])));
