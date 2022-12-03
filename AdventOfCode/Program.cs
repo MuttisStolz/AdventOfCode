@@ -1,6 +1,6 @@
 ﻿
 using AdventOfCode;
 
-IDayTask projekt = new Day03();
-//projekt.Task1();
-projekt.Task2();
+IPuzzle Day = new Day03();
+Day.PuzzlePart1();
+Day.PuzzlePart2();

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode
 {
-    public class Day01 : IDayTask
+    public class Day01 : IPuzzle
     {
-        public void Task1()
+        public void PuzzlePart1()
         {
             var elfs = this.ReadInput();
 
@@ -17,7 +17,7 @@ namespace AdventOfCode
             Console.WriteLine(fatElf);
         }
 
-        public void Task2()
+        public void PuzzlePart2()
         {
             var elfs = this.ReadInput();
             elfs = elfs.OrderByDescending(o => o.sumCal).ToList();

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode
 {
-    internal interface IDayTask
+    internal interface IPuzzle
     {
-        public void Task1();
-        public void Task2();
+        public void PuzzlePart1();
+        public void PuzzlePart2();
     }
 }

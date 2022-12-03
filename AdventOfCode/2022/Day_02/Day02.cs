@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-public class Day02 : IDayTask
+public class Day02 : IPuzzle
 {
     public enum Handsign
     {
@@ -24,7 +24,7 @@ public class Day02 : IDayTask
     {
     }
 
-    public void Task1()
+    public void PuzzlePart1()
     {
         int score = 0;
         var rounds = ReadInput();
@@ -37,7 +37,7 @@ public class Day02 : IDayTask
         Console.WriteLine($"Score Total is {score}");
     }
 
-    public void Task2()
+    public void PuzzlePart2()
     {
         int score = 0;
         var rounds = ReadInput();

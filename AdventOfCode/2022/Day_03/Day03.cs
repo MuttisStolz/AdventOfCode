@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode
 {
-    public class Day03 : IDayTask
+    public class Day03 : IPuzzle
     {
-        public void Task1()
+        public void PuzzlePart1()
         {
             var rucksacks = this.ReadRucksackInput();
 
@@ -19,7 +19,7 @@ namespace AdventOfCode
             Console.WriteLine($"sum of the priorities = {sumPrio} ");
         }
 
-        public void Task2()
+        public void PuzzlePart2()
         {
             var groups = this.ReadGroupFromInput();
 
