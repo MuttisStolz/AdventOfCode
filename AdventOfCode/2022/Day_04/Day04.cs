@@ -48,8 +48,8 @@ namespace AdventOfCode
         {
             get
             {
-                return FullContained(FirstElfAssignments, SecondElfAssignments) 
-                    || FullContained(SecondElfAssignments, FirstElfAssignments);
+                return IsFullContained(FirstElfAssignments, SecondElfAssignments) 
+                    || IsFullContained(SecondElfAssignments, FirstElfAssignments);
             }
         }
 
@@ -73,7 +73,7 @@ namespace AdventOfCode
             SecondElfAssignments = FillAssignmentsArray(range2);
         }        
 
-        private bool FullContained(List<int> a, List<int> b)
+        private bool IsFullContained(List<int> a, List<int> b)
         {
             var res = true;
 
