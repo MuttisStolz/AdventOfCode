@@ -1,6 +1,6 @@
 ﻿
 using AdventOfCode;
 
-IPuzzle Day = new Day03();
+IPuzzle Day = new Day04();
 Day.PuzzlePart1();
 Day.PuzzlePart2();
