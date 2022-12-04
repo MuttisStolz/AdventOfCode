@@ -69,8 +69,8 @@ namespace AdventOfCode
 
         public ElfPair(string range1, string range2)
         {
-            FirstElfAssignments = FillAssignmentsArray(range1);
-            SecondElfAssignments = FillAssignmentsArray(range2);
+            FirstElfAssignments = GetAssignment(range1);
+            SecondElfAssignments = GetAssignment(range2);
         }        
 
         private bool IsFullContained(List<int> a, List<int> b)
@@ -88,7 +88,7 @@ namespace AdventOfCode
             return res;
         }
 
-        private List<int> FillAssignmentsArray(string range)
+        private List<int> GetAssignment(string range)
         {
             var res = new List<int>();
 
