@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode
+﻿namespace AdventOfCode
 {
     public class Day05 : IPuzzle
     {
-        Dictionary<int, Queue<char>> Cargo = new Dictionary<int, Queue<char>>();
+        Dictionary<int, LinkedList<char>> Cargo = new Dictionary<int, LinkedList<char>>();
         List<(int amount, int from, int to)> Movements = new List<(int amount, int from, int to)>();
 
         public void PuzzlePart1()
@@ -18,11 +11,7 @@ namespace AdventOfCode
 
             foreach(var movement in Movements)
             {
-                var tmp = GetTopsFromCargo();
-                Console.WriteLine(tmp);
                 this.Move(movement);
-                tmp = GetTopsFromCargo();
-                Console.WriteLine(tmp);
             }
 
             var res = GetTopsFromCargo();
@@ -39,11 +28,9 @@ namespace AdventOfCode
         {
             for(int i = 0; i< movement.amount; i++)
             {
-                throw new NotImplementedException("No time to finnish it");
-                var item = this.Cargo[movement.from].Dequeue();
-                var tmp = this.Cargo[movement.to];
-                //this.Cargo[movement.to].Clear();
-                //this.Cargo[movement.from].Enqueue(item);
+                var item = this.Cargo[movement.from].First();
+                this.Cargo[movement.from].RemoveFirst();
+                this.Cargo[movement.to].AddFirst(item);
             }
         }
 
@@ -61,7 +48,7 @@ namespace AdventOfCode
 
         private void ReadInput()
         {
-            foreach (var line in File.ReadAllLines("2022/Day_05/test.txt"))
+            foreach (var line in File.ReadAllLines("2022/Day_05/d05input.txt"))
             {
                 var charArray = line.ToArray<char>();
 
@@ -84,12 +71,12 @@ namespace AdventOfCode
                         {
                             if(Cargo.ContainsKey(j))
                             {
-                                Cargo[j].Enqueue(charArray[i]);
+                                Cargo[j].AddLast(charArray[i]);
                             }
                             else
                             {
-                                Cargo.Add(j, new Queue<char>());
-                                Cargo[j].Enqueue(charArray[i]);
+                                Cargo.Add(j, new LinkedList<char>());
+                                Cargo[j].AddLast(charArray[i]);
                             }
                         }
 
