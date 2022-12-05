@@ -11,7 +11,7 @@
 
             foreach(var movement in Movements)
             {
-                this.Move(movement);
+                this.MoveWithCrateMover9000(movement);
             }
 
             var res = GetTopsFromCargo();
@@ -21,15 +21,42 @@
 
         public void PuzzlePart2()
         {
-            throw new NotImplementedException();
+            ReadInput();
+
+            foreach (var movement in Movements)
+            {
+
+                this.MoveWithCrateMover9001(movement);
+            }
+
+            var res = GetTopsFromCargo();
+
+            Console.WriteLine(res);
         }
 
-        private void Move((int amount, int from, int to) movement)
+        private void MoveWithCrateMover9000((int amount, int from, int to) movement)
         {
             for(int i = 0; i< movement.amount; i++)
             {
                 var item = this.Cargo[movement.from].First();
                 this.Cargo[movement.from].RemoveFirst();
+                this.Cargo[movement.to].AddFirst(item);
+            }
+        }
+
+        private void MoveWithCrateMover9001((int amount, int from, int to) movement)
+        {
+            LinkedList<char> tmp = new LinkedList<char>();
+
+            for (int i = 0; i < movement.amount; i++)
+            {
+                var item = this.Cargo[movement.from].First();
+                this.Cargo[movement.from].RemoveFirst();
+                tmp.AddFirst(item);
+            }
+
+            foreach(var item in tmp)
+            {
                 this.Cargo[movement.to].AddFirst(item);
             }
         }
@@ -40,7 +67,8 @@
 
             for (int i = 1; i <= Cargo.Keys.Max(); i++ )
             {
-                res += Cargo[i]?.First();
+                if(Cargo[i].Count > 0)
+                    res += Cargo[i]?.First();
             }
 
             return res;
@@ -48,7 +76,8 @@
 
         private void ReadInput()
         {
-            foreach (var line in File.ReadAllLines("2022/Day_05/d05input.txt"))
+            //foreach (var line in File.ReadAllLines("2022/Day_05/test.txt"))
+            foreach (var line in File.ReadAllLines("2022/Day_05/d05input.txt"))                
             {
                 var charArray = line.ToArray<char>();
 
