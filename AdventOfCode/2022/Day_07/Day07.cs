@@ -12,13 +12,12 @@ namespace AdventOfCode
         List<((string command,string argument), List<string> output)> Input 
             = new List<((string command, string argument), List<string> output)>();
 
-        //private Directory FileSystem = new Directory();
         private Directory current;
         private Directory start;
 
         public Day07()
         {
-            var examplefile = "2022/Day_07/Example.txt";
+            //var examplefile = "2022/Day_07/Example.txt";
             var fileName = "2022/Day_07/07input.txt";
 
             this.ReadInput(fileName);
@@ -37,13 +36,20 @@ namespace AdventOfCode
 
         public void PuzzlePart2()
         {
-            throw new NotImplementedException();
+            long DiscSpace =  70_000_000;
+            long UpdateSize = 30_000_000;
+            var unusedspace = DiscSpace - start.GetSize();
+            var spaceToMakeFree = UpdateSize - unusedspace;
+
+            var minDicToGetEnoughSpace = start
+                .GetDirectoriesByMinSize(spaceToMakeFree)
+                .MinBy(d=>d.GetSize());
+
+            Console.WriteLine($"To Delete = " 
+                + minDicToGetEnoughSpace?.Name 
+                +" "+ minDicToGetEnoughSpace?.GetSize());
         }
 
-        public void Example()
-        {
-
-        }
 
         private void CreateFileSystem()
         {

@@ -10,7 +10,7 @@ namespace AdventOfCode
     {
         public string Name { get; set; }
         public string? ParentName { get; set; }
-        public Directory Parent { get; set; }
+        public Directory Parent { get; set; } 
         public List<DataFiles> DataFiles { get; set; } = new List<DataFiles>();
         public List<Directory> Directories { get; set; } = new List<Directory>();
 
@@ -18,13 +18,11 @@ namespace AdventOfCode
         {
             Name = name;
         }
-
         public Directory(string name, Directory parent)
         {
             Name = name;
             Parent = parent;
         }
-
         public long GetSize()
         {
             long res = 0;
@@ -36,8 +34,24 @@ namespace AdventOfCode
 
             return res + DataFiles.Sum(f => f.Size);
         }
+        public List<Directory> GetDirectoriesByMinSize(long Min)
+        {
+            Console.WriteLine(Name + " has size " + GetSize());
+            var tmp = new List<Directory>();
 
+            if (this.GetSize() > Min)
+            {
+                Console.WriteLine(Name + " can delete" );
+                tmp.Add(this);
+            }
 
+            foreach (var child in Directories)
+            {
+                tmp.AddRange(child.GetDirectoriesByMinSize(Min));
+            }
+
+            return tmp;
+        }
         public List<Directory> GetDirectoriesByMaxSize(long max)
         {
             var tmp = new List<Directory>();
@@ -54,7 +68,6 @@ namespace AdventOfCode
 
             return tmp;
         }
-
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
