@@ -53,25 +53,7 @@ namespace AdventOfCode
         public T Get(int row, int column)
         {
             return this.Cluster[row, column];
-        }
-
-        public override string ToString()
-        {
-            StringBuilder res = new StringBuilder();
-
-            for (int i = 0; i < RowCount; i++)
-            {
-                var row = this.GetRow(i);
-
-                var rowString = row.Aggregate(new StringBuilder(),
-                    (sb, cv) => sb.Append(cv?.ToString()))
-                    .ToString();
-
-                res.AppendLine(rowString);
-            }
-
-            return res.ToString();
-        }
+        }        
 
         public void RunThroughAllValues(Action<(int,int)> action)
         {
@@ -87,19 +69,6 @@ namespace AdventOfCode
         public bool IsEdgeNode(int r, int c)
         {
             return r == 0 || c == 0 || r == RowCount-1 || c == ColumnCount-1;
-        }
-
-        public List<T> GetNeighborValues(int r, int c)
-        {
-            //Console.WriteLine($"Search for Coardinate {r}|{c} with Value {Cluster[r, c]}");
-            List <T> res = new List<T>();
-
-            res.AddRange(this.GetUpperRowValues(r, c));
-            res.AddRange(this.GetButtonRowValues(r, c));
-            res.AddRange(this.GetLeftColumnValues(r, c));
-            res.AddRange(this.GetRightColumnValues(r, c));
-
-            return res.ToList();
         }
 
         public List<T> GetButtonRowValues(int r, int c)
@@ -157,6 +126,24 @@ namespace AdventOfCode
             }
 
             return res;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder res = new StringBuilder();
+
+            for (int i = 0; i < RowCount; i++)
+            {
+                var row = this.GetRow(i);
+
+                var rowString = row.Aggregate(new StringBuilder(),
+                    (sb, cv) => sb.Append(cv?.ToString()))
+                    .ToString();
+
+                res.AppendLine(rowString);
+            }
+
+            return res.ToString();
         }
     }
 }
