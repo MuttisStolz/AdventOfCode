@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode
 {
-    public class TwoDimensionalArray<T>
+    public class TwoDimensionalArray<T> 
     {
         private T[,] Cluster;
         private int lastAddedRow = 0;
@@ -49,6 +50,11 @@ namespace AdventOfCode
             return tmp;
         }
 
+        public T Get(int row, int column)
+        {
+            return this.Cluster[row, column];
+        }
+
         public override string ToString()
         {
             StringBuilder res = new StringBuilder();
@@ -67,42 +73,88 @@ namespace AdventOfCode
             return res.ToString();
         }
 
-        public void RunThroughAllValues()
+        public void RunThroughAllValues(Action<(int,int)> action)
         {
             for (int r = 0; r < RowCount; r++)
             {
                 for (int c = 0; c < ColumnCount; c++)
                 {
-                    var n = GetNeighborValues(r, c);
-                    var current = Cluster[r, c];
+                    action((r, c));
                 }
             }
         }
 
+        public bool IsEdgeNode(int r, int c)
+        {
+            return r == 0 || c == 0 || r == RowCount-1 || c == ColumnCount-1;
+        }
+
         public List<T> GetNeighborValues(int r, int c)
         {
-            Console.WriteLine($"Search for Coardinate {r}|{c} with Value {Cluster[r, c]}");
+            //Console.WriteLine($"Search for Coardinate {r}|{c} with Value {Cluster[r, c]}");
             List <T> res = new List<T>();
 
-            //UpperRow
-            var ru = r-1;
-            while (ru >= 0)
-            {
-                Console.WriteLine($"Found UpperRow {Cluster[ru, c]}");
-                res.Add(Cluster[ru, c]);
-                ru--;
-            }
+            res.AddRange(this.GetUpperRowValues(r, c));
+            res.AddRange(this.GetButtonRowValues(r, c));
+            res.AddRange(this.GetLeftColumnValues(r, c));
+            res.AddRange(this.GetRightColumnValues(r, c));
 
-            //ButtonRow
+            return res.ToList();
+        }
 
-            var rb = r+1;
+        public List<T> GetButtonRowValues(int r, int c)
+        {
+            List<T> res = new List<T>();
+
+            var rb = r + 1;
             while (rb < RowCount)
             {
-                Console.WriteLine($"Found BottomRow {Cluster[rb, c]}");
                 res.Add(Cluster[rb, c]);
                 rb++;
             }
 
+            return res;
+        }
+
+        public List<T> GetUpperRowValues(int r, int c)
+        {
+            List<T> res = new List<T>();
+
+            //UpperRow
+            var ru = r - 1;
+            while (ru >= 0)
+            {
+                res.Add(Cluster[ru, c]);
+                ru--;
+            }
+
+            return res;
+        }
+
+        public List<T> GetLeftColumnValues(int r, int c)
+        {
+            List<T> res = new List<T>();
+
+            var cl = c - 1;
+            while (cl >= 0)
+            {
+                res.Add(Cluster[r, cl]);
+                cl--;
+            }
+
+            return res;
+        }
+
+        public List<T> GetRightColumnValues(int r, int c)
+        {
+            List<T> res = new List<T>();
+
+            var cr = c + 1;
+            while (cr < ColumnCount)
+            {
+                res.Add(Cluster[r, cr]);
+                cr++;
+            }
 
             return res;
         }
