@@ -71,7 +71,7 @@ namespace AdventOfCode
             scores.Add(CalcScore(currentHigh, Cluster.GetUpperRowValues(input.r, input.c)));
             scores.Add(CalcScore(currentHigh, Cluster.GetButtonRowValues(input.r, input.c)));
 
-            this.TreeScores.Add(input, scores.MultiplicationProduct());
+            this.TreeScores.Add(input, scores.Product());
         }
 
         private int CalcScore(int current,List<int> values)
