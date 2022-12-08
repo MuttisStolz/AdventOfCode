@@ -36,20 +36,16 @@ namespace AdventOfCode
             }
 
             if (Cluster.GetLeftColumnValues(input.r, input.c)
-                .Distinct()
-                .Any(a => a >= Cluster.Get(input.r, input.c)))
+                .Distinct().Any(a => a >= Cluster.Get(input.r, input.c)))
             {
                 if (Cluster.GetRightColumnValues(input.r, input.c)
-                .Distinct()
-                .Any(a => a >= Cluster.Get(input.r, input.c)))
+                .Distinct().Any(a => a >= Cluster.Get(input.r, input.c)))
                 {
                     if (Cluster.GetUpperRowValues(input.r, input.c)
-                        .Distinct()
-                        .Any(a => a >= Cluster.Get(input.r, input.c)))
+                        .Distinct().Any(a => a >= Cluster.Get(input.r, input.c)))
                     {
                         if (Cluster.GetButtonRowValues(input.r, input.c)
-                            .Distinct()
-                            .Any(a => a >= Cluster.Get(input.r, input.c)))
+                            .Distinct().Any(a => a >= Cluster.Get(input.r, input.c)))
                         {
                             return;
                         }
