@@ -14,8 +14,9 @@ namespace AdventOfCode
         List<(char direction, int amountOfSteps)> Input = new List<(char, int)>();
 
         CoordinatePoint Head = new CoordinatePoint(0, 0);
-        CoordinatePoint Tail = new CoordinatePoint(0, 0);
+        CoordinatePoint Tail1 = new CoordinatePoint(0, 0);
 
+        List<CoordinatePoint> Tails = new List<CoordinatePoint>();
 
         public Day09()
         {
@@ -31,19 +32,46 @@ namespace AdventOfCode
                 for (int step = 0; step < command.amountOfSteps; step++)
                 {
                     Head.MoveStep(command.direction);
-                    Tail.MoveTo(Head);
+                    Tail1.MoveTo(Head);
 
-                    Console.WriteLine($"Head = {Head} | ");
-                    Console.WriteLine($"Tail = {Tail} | {Tail.VisitPoints.Count}");
+                    Console.WriteLine($"Head = {Head} ");
+                    Console.WriteLine($"Tail = {Tail1} ");
                 }
             }
 
-            Console.WriteLine($"Solution for Part1 = {this.Tail.VisitPoints.Count}");
+            Console.WriteLine($"Solution for Part1 = {Tail1}");
         }
 
+        private void InitTails(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Tails.Add(new CoordinatePoint());
+            }
+        }
         public void PuzzlePart2()
         {
-            Console.WriteLine($"Solution for Part2 = {Input.Count}");
+            this.InitTails(10);
+
+            foreach (var command in Input)
+            {
+                Console.WriteLine($" === {command.direction} {command.amountOfSteps} ===");
+                for (int step = 0; step < command.amountOfSteps; step++)
+                {
+                    Head.MoveStep(command.direction);
+                    Console.WriteLine($"Head = {Head} ");
+
+                    Tails[0].MoveTo(Head);
+                    Console.WriteLine($"Tail{1} = {Tails[0]} ");
+
+                    for (int i = 1; i<Tails.Count-1;i++)
+                    {
+                        Tails[i].MoveTo(Tails[i - 1]);
+                        Console.WriteLine($"Tail{i+1} = {Tails[i]} ");
+                    }                    
+                }
+            }
+
         }
 
         private void ReadInput()
@@ -55,9 +83,7 @@ namespace AdventOfCode
             {
                 var s = line.Split(' ');
                 this.Input.Add((char.Parse(s[0]), int.Parse(s[1])));
-            }
-
-            
+            }            
         }
     }
 
@@ -67,6 +93,13 @@ namespace AdventOfCode
         public int Y { get; private set; }
 
         public List<(int, int)> VisitPoints { get; private set; } = new List<(int, int)>();
+
+        public CoordinatePoint()
+        {
+            this.X = 0;
+            this.Y = 0;
+            SaveVisitPoint();
+        }
 
         public CoordinatePoint(int x, int y)
         {
@@ -142,17 +175,9 @@ namespace AdventOfCode
             
         }
 
-        public bool IsCloseTo(CoordinatePoint other)
-        {
-            var xdiff = Math.Abs(this.X - other.X);
-            var ydiff = Math.Abs(this.Y - other.Y);
-
-            return xdiff == 1 || ydiff == 1;
-        }
-
         public override string ToString()
         {
-            return $"({this.X}|{this.Y})";
+            return $"Current Position ({this.X}|{this.Y}). Visit Points Count = {this.VisitPoints.Count}";
         }
     }
 
