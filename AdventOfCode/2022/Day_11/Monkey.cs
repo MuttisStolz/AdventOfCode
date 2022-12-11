@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode._2022.Day_11
+﻿namespace AdventOfCode
 {
     public class Monkey
     {

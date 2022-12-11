@@ -1,5 +1,4 @@
-﻿using AdventOfCode._2022.Day_11;
-using CommonLib.Extensions;
+﻿using CommonLib.Extensions;
 using Xunit;
 
 namespace AdventOfCode
