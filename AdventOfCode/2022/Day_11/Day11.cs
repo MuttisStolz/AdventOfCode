@@ -1,14 +1,9 @@
 ﻿using AdventOfCode._2022.Day_11;
 using CommonLib.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace AdventOfCode
-{ 
+{
 
     public class Day11 : IPuzzle
     {
@@ -20,8 +15,8 @@ namespace AdventOfCode
             string exampleFile = "2022/Day_11/ex.txt";
             string inputFile = "2022/Day_11/input.txt";
 
-            var exInput = File.ReadAllLines(exampleFile).Where(s => !string.IsNullOrEmpty(s));
-            var finalInput = File.ReadAllLines(inputFile).Where(s => !string.IsNullOrEmpty(s));
+            var exInput = File.ReadAllLines(exampleFile).RemoveNullOrEmptyEntries();
+            var finalInput = File.ReadAllLines(inputFile).RemoveNullOrEmptyEntries();
 
             exampleMonkeys = CreateMonkeys(exInput.Count(m => m.StartsWith("Monkey")));
             monkeys = CreateMonkeys(finalInput.Count(m => m.StartsWith("Monkey")));

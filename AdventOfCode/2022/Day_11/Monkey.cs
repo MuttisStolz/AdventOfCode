@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Day02;
-
-namespace AdventOfCode._2022.Day_11
+﻿namespace AdventOfCode._2022.Day_11
 {
     public class Monkey
     {

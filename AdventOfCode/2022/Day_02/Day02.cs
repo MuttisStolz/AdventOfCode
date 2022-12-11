@@ -1,25 +1,7 @@
 ﻿using AdventOfCode;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 public class Day02 : IPuzzle
 {
-    public enum Handsign
-    {
-        /// <summary>
-        /// A or X
-        /// </summary>
-        Rock = 1,
-        /// <summary>
-        /// B or Y
-        /// </summary>
-        Paper = 2,
-        /// <summary>
-        /// C or Z
-        /// </summary>
-        Scissor = 3,
-    }
-
     public Day02()
     {
     }
