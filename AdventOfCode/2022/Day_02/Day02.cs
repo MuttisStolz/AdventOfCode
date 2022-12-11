@@ -1,4 +1,5 @@
 ﻿using AdventOfCode;
+using CommonLib.Enums;
 
 public class Day02 : IPuzzle
 {

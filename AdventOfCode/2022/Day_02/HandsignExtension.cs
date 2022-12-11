@@ -1,4 +1,5 @@
-﻿using static Day02;
+﻿using CommonLib.Enums;
+using static Day02;
 
 namespace AdventOfCode
 {
