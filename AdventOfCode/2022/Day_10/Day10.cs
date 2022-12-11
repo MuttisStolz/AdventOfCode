@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CommonLib.Extensions;
+using Microsoft.Win32;
 using System;
 using System.Collections;
 using System.Collections.Generic;

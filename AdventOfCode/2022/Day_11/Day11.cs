@@ -1,4 +1,5 @@
 ﻿using AdventOfCode._2022.Day_11;
+using CommonLib.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +65,7 @@ namespace AdventOfCode
         public void PuzzlePart1()
         {
             Assert.Equal("10605", PlayRounds(20, exampleMonkeys));
-            Console.WriteLine($"Solution Part 1: {PlayRounds(20, monkeys)}");
+            Console.WriteLine($"Solution Part 1: {PlayRounds(20, monkeys)}");            
         }
 
         private string PlayRounds(int rounds, List<Monkey> monkeyList)
@@ -73,11 +74,16 @@ namespace AdventOfCode
 
             for (var round = 0; round < rounds; round++)
             {
-                foreach (var monkey in monkeyList)
-                {
-                    //Console.WriteLine($"Monkey {monkey.OwnIndex}:");
-                    monkey.Inspect();
-                }
+                monkeyList.ForEach((Monkey m) => 
+                { 
+                    m.Inspect(); 
+                });
+
+                //foreach (var monkey in monkeyList)
+                //{
+                //    //Console.WriteLine($"Monkey {monkey.OwnIndex}:");
+                //    monkey.Inspect();
+                //}
 
                 //Console.WriteLine($"After Round {round+1}");
                 //foreach (var m in monkeyList)
@@ -102,6 +108,9 @@ namespace AdventOfCode
 
         public void PuzzlePart2()
         {
+            exampleMonkeys.ForEach((Monkey m) => { m.WorryFactor = 1; });
+            Assert.Equal("2713310158", PlayRounds(10_000, exampleMonkeys));
+
             Console.WriteLine($"Solution Part 2:");
         }
 

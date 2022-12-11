@@ -14,6 +14,7 @@ namespace AdventOfCode._2022.Day_11
         public Queue<int> Items { get; set; } = new Queue<int>();
         public int DivisibleBy { get; set; }
 
+        public int WorryFactor { get; set; } = 3;
 
         public int OwnIndex { get; private set; }
         public int InspectedCounter { get; private set; } =0;
@@ -71,7 +72,7 @@ namespace AdventOfCode._2022.Day_11
                 this.old = level;
 
                 var worry = this.operationFunc();
-                var worry3 = worry / 3;
+                var worry3 = worry / WorryFactor;
 
                 bool isDivisibleBy = worry3 % this.DivisibleBy == 0;
 
