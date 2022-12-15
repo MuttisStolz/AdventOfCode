@@ -1,4 +1,5 @@
 ﻿using CommonLib.Extensions;
+using System.Numerics;
 using Xunit;
 
 namespace AdventOfCode
@@ -31,12 +32,15 @@ namespace AdventOfCode
 
                     var monkey = monkeyList[currentMonkeyIndex];
 
-                    monkey.Items = block.ElementAt(1).Replace("Starting items:", "").Trim().Split(',').ToQueue<int,string>();
+                    var t = block.ElementAt(1).Replace("Starting items:", "").Trim().Split(',').ToList().Select(i => BigInteger.Parse(i)).ToList();
+                    t.ForEach((e) => { monkey.Items.Enqueue(e); });
+
+                    //monkey.Items = block.ElementAt(1).Replace("Starting items:", "").Trim().Split(',').ToQueue<BigInteger,string>();
 
                     var operationInfos = block.ElementAt(2).Replace("Operation: new = ","").Trim().Split(' ');
                     monkey.SetOperationFunction(operationInfos[0], operationInfos[2], operationInfos[1]);
 
-                    monkey.DivisibleBy = int.Parse(block.ElementAt(3).Replace("Test: divisible by ", "").Trim());
+                    monkey.DivisibleBy = BigInteger.Parse(block.ElementAt(3).Replace("Test: divisible by ", "").Trim());
 
                     var mti = int.Parse(block.ElementAt(4).Replace("If true: throw to monkey ", "").Trim());
                     monkey.TrueMonkey = monkeyList[mti];
@@ -62,6 +66,18 @@ namespace AdventOfCode
             Console.WriteLine($"Solution Part 1: {PlayRounds(20, monkeys)}");            
         }
 
+        public void PuzzlePart2()
+        {
+            BigInteger a = 1;
+
+            exampleMonkeys.ForEach((Monkey m) => { a = a * m.DivisibleBy; });
+
+            exampleMonkeys.ForEach((Monkey m) => { m.WorryFactor = 1; m.DivisibleBy = a; });
+            Assert.Equal("2713310158", PlayRounds(10_000, exampleMonkeys));
+
+            Console.WriteLine($"Solution Part 2:");
+        }
+
         private string PlayRounds(int rounds, List<Monkey> monkeyList)
         {
             string res = string.Empty;
@@ -72,6 +88,13 @@ namespace AdventOfCode
                 { 
                     m.Inspect(); 
                 });
+
+                Console.WriteLine($"After {round+1} Rounds:");
+                //foreach (var m in monkeyList)
+                //{
+
+                //    Console.WriteLine($"\tMonkey {m.OwnIndex} inspected items :{m.InspectedCounter} times");
+                //}
 
                 //foreach (var monkey in monkeyList)
                 //{
@@ -84,11 +107,12 @@ namespace AdventOfCode
                 //{
                 //    Console.WriteLine($"\tMonkey {m.OwnIndex} holding:{m.Items.GetOutputString(',')}");
                 //}
-                
-            }
 
+            }
+            Console.WriteLine($"After {rounds} Rounds:");
             foreach (var m in monkeyList)
             {
+                
                 Console.WriteLine($"\tMonkey {m.OwnIndex} inspected items :{m.InspectedCounter} times");
             }
 
@@ -100,13 +124,7 @@ namespace AdventOfCode
                 .ToString();
         }
 
-        public void PuzzlePart2()
-        {
-            exampleMonkeys.ForEach((Monkey m) => { m.WorryFactor = 1; });
-            Assert.Equal("2713310158", PlayRounds(10_000, exampleMonkeys));
-
-            Console.WriteLine($"Solution Part 2:");
-        }
+        
 
         private List<Monkey> CreateMonkeys(int amountOfMonkey)
         {
